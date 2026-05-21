@@ -183,5 +183,17 @@ const reviewsCollection = db.collection("reviews");
       }
     });
 
+    app.get("/", (req, res) => {
+      res.send("DocAppoint Server is Running! ✅");
+    });
+
+    app.listen(port, () => {
+      console.log(`🚀 Server running on port ${port}`);
+    });
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error);
+  }
+}
+
 
 run();
