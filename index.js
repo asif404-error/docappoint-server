@@ -84,7 +84,7 @@ async function run() {
         res.status(500).send({ message: "Failed to fetch top rated doctors" });
       }
     });
-    
+
     app.get("/doctors/:id", async (req, res) => {
       try {
         const id = req.params.id;
@@ -96,6 +96,24 @@ async function run() {
         res.send(doctor);
       } catch (error) {
         res.status(500).send({ message: "Failed to fetch doctor" });
+      }
+    });
+
+    app.get("/appointments", async (req, res) => {
+      try {
+        const email = req.query.email;
+
+        const query = { userEmail: email };
+
+        const result = await appointmentsCollection.find(query).toArray();
+
+        res.send(result);
+      } catch (error) {
+        console.log(error);
+
+        res.status(500).send({
+          message: "Failed to fetch appointments",
+        });
       }
     });
 
