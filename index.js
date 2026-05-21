@@ -127,5 +127,29 @@ async function run() {
       }
     });
 
+    app.put("/appointments/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const updatedData = req.body;
+        const filter = { _id: new ObjectId(id) };
+        const updateDoc = {
+          $set: {
+            patientName: updatedData.patientName,
+            gender: updatedData.gender,
+            phone: updatedData.phone,
+            appointmentDate: updatedData.appointmentDate,
+            appointmentTime: updatedData.appointmentTime,
+          },
+        };
+        const result = await appointmentsCollection.updateOne(
+          filter,
+          updateDoc,
+        );
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to update appointment" });
+      }
+    });
+
 
 run();
