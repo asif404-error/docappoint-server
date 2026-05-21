@@ -151,5 +151,16 @@ async function run() {
       }
     });
 
+    app.delete("/appointments/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+        const result = await appointmentsCollection.deleteOne(query);
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to delete appointment" });
+      }
+    });
+
 
 run();
