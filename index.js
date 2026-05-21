@@ -173,5 +173,15 @@ const reviewsCollection = db.collection("reviews");
       }
     });
 
+    app.post("/reviews", async (req, res) => {
+      try {
+        const review = req.body;
+        const result = await reviewsCollection.insertOne(review);
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to add review" });
+      }
+    });
+
 
 run();
