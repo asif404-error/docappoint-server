@@ -5,7 +5,6 @@ app.get("/appointments", verifyJWT, async (req, res) => {
     if (req.user.email !== email) {
       return res.status(403).send({ message: "Forbidden - Access denied" });
     }
-
     const query = email ? { userEmail: email } : {};
     const appointments = await appointmentsCollection.find(query).toArray();
     res.send(appointments);
