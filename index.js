@@ -117,4 +117,15 @@ async function run() {
       }
     });
 
+    app.post("/appointments", async (req, res) => {
+      try {
+        const appointment = req.body;
+        const result = await appointmentsCollection.insertOne(appointment);
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to create appointment" });
+      }
+    });
+
+
 run();
