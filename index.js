@@ -72,4 +72,31 @@ async function run() {
       }
     });
 
+    app.get("/doctors/top-rated", async (req, res) => {
+      try {
+        const doctors = await doctorsCollection
+          .find()
+          .sort({ rating: -1 })
+          .limit(3)
+          .toArray();
+        res.send(doctors);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to fetch top rated doctors" });
+      }
+    });
+    
+    app.get("/doctors/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+        const doctor = await doctorsCollection.findOne(query);
+        if (!doctor) {
+          return res.status(404).send({ message: "Doctor not found" });
+        }
+        res.send(doctor);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to fetch doctor" });
+      }
+    });
+
 run();
