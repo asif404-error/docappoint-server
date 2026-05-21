@@ -63,4 +63,13 @@ async function run() {
       res.send({ token });
     });
 
+    app.get("/doctors", async (req, res) => {
+      try {
+        const doctors = await doctorsCollection.find().toArray();
+        res.send(doctors);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to fetch doctors" });
+      }
+    });
+
 run();
