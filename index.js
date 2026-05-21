@@ -49,8 +49,8 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
-    console.log("✅ Connected to MongoDB!");
+    // await client.connect();
+    // console.log("✅ Connected to MongoDB!");
 
     const db = client.db("docappoint");
     const doctorsCollection = db.collection("doctors");
@@ -162,7 +162,7 @@ async function run() {
       }
     });
 
-const reviewsCollection = db.collection("reviews");
+    const reviewsCollection = db.collection("reviews");
     app.get("/reviews/:doctorId", async (req, res) => {
       try {
         const doctorId = req.params.doctorId;
@@ -194,6 +194,5 @@ const reviewsCollection = db.collection("reviews");
     console.error("❌ MongoDB connection failed:", error);
   }
 }
-
 
 run();
