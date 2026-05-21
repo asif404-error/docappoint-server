@@ -162,5 +162,16 @@ async function run() {
       }
     });
 
+const reviewsCollection = db.collection("reviews");
+    app.get("/reviews/:doctorId", async (req, res) => {
+      try {
+        const doctorId = req.params.doctorId;
+        const reviews = await reviewsCollection.find({ doctorId }).toArray();
+        res.send(reviews);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to fetch reviews" });
+      }
+    });
+
 
 run();
